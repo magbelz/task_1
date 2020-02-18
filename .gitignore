@@ -1,3 +1,4 @@
 Win32/
 *.cbproj.local
 __history/
+__recovery/
