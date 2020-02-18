@@ -2,11 +2,10 @@
 #include <tchar.h>
 #endif
 
-extern "C" int __declspec(dllexport) __stdcall getDisk(int argc, _TCHAR* argv []);
 #pragma pack(push, 1)
 typedef struct {
   BYTE BS_jmpBoot[3];       // 0x00 переход в начало описания
-  BYTE BS_OEMName[8];       // 0x03 OEM Name
+  char BS_OEMName[8];       // 0x03 OEM Name
   UINT16 BS_BytsPerSec;    // 0x0b количество байт в секторе
   UINT8 BS_SecPerClus;     // 0x0d кластерный множитель
   UINT16 BS_RsvdSecCnt;    // 0x0e размер зарезервированной области (в секторах)
@@ -34,3 +33,5 @@ typedef struct {
   char BS_FilSysType[8];    // 0x52 метка типа ФС "FAT32"
 }  FAT32_BootRecord;
 #pragma pack(pop)
+
+extern "C" int __declspec(dllexport) __stdcall getDisk(FAT32_BootRecord* pBootRecord);

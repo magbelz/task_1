@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-int __stdcall getDisk(int argc, _TCHAR* argv[])
+int __stdcall getDisk(FAT32_BootRecord* pBootRecord)
    {
 	WCHAR *fileName = L"\\\\.\\M:";
 
@@ -61,13 +61,11 @@ int __stdcall getDisk(int argc, _TCHAR* argv[])
 	   cout << "Error3!" << endl;
 	}
 
-	FAT32_BootRecord *pBootRecord = reinterpret_cast<FAT32_BootRecord*>(dataBuffer);
-	cout << pBootRecord;
-	  //
+	*pBootRecord = *reinterpret_cast<FAT32_BootRecord*>(dataBuffer);
+
 	CloseHandle (fileHandle);
 
-	cin.get();
-	return 0;
+	return 1;
    }
 
 extern "C" int _libmain(unsigned long reason)
