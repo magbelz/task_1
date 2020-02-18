@@ -10,42 +10,40 @@
 using namespace std;
 
 
-
-int getDisk(int argc, _TCHAR* argv[])
+int __stdcall getDisk(FAT32_BootRecord* pBootRecord)
    {
 	WCHAR *fileName = L"\\\\.\\M:";
 
 	HANDLE fileHandle = CreateFileW(
-		fileName, //
-		GENERIC_READ, //
-		FILE_SHARE_READ | FILE_SHARE_WRITE, //
-		NULL, //
-		OPEN_EXISTING, //
-		FILE_ATTRIBUTE_NORMAL, //
-		NULL //
+		fileName,
+		GENERIC_READ,
+		FILE_SHARE_READ | FILE_SHARE_WRITE,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL
 	);
 	if(fileHandle == INVALID_HANDLE_VALUE)
 	{
-		//
-		cout << "Error1!" << endl;
+
+		cout << "Invalid file handle!" << endl;
 	}
 
 	LARGE_INTEGER sectorOffset;
 	sectorOffset.QuadPart = 0;
-   //
+
 	unsigned long currentPosition = SetFilePointer(
 		fileHandle,
 		sectorOffset.LowPart,
 		&sectorOffset.HighPart,
-		FILE_BEGIN //
+		FILE_BEGIN
 	);
 	if (currentPosition != sectorOffset.LowPart)
 	{
-		//
-		cout << "Error2!" << endl;
+
+		cout << "Current position is wrong!" << endl;
 	}
 	BYTE dataBuffer[1024];
-	//read data
 	DWORD bytesToRead = 1024;
 	DWORD bytesRead;
 
@@ -58,16 +56,14 @@ int getDisk(int argc, _TCHAR* argv[])
 	);
 	if (!readResult || bytesRead != bytesToRead)
 	{
-	   cout << "Error3!" << endl;
+	   cout << "Read error!" << endl;
 	}
 
-	FAT32_BootRecord *pBootRecord = reinterpret_cast<FAT32_BootRecord*>(dataBuffer);
-	cout << pBootRecord;
-	  //
+	*pBootRecord = *reinterpret_cast<FAT32_BootRecord*>(dataBuffer);
+
 	CloseHandle (fileHandle);
 
-	cin.get();
-	return 0;
+	return 1;
    }
 
 extern "C" int _libmain(unsigned long reason)
