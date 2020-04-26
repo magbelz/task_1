@@ -1,3 +1,13 @@
 *.cbproj.local
 __history/
 __recovery/
+__astcache
+*.ilc
+*.ild
+*.ilf
+*.ils
+*.map
+*.obj
+*.pch
+*.tds
+Win32/

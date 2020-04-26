@@ -38,18 +38,6 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
-        <Cfg_2_Win32>true</Cfg_2_Win32>
-        <CfgParent>Cfg_2</CfgParent>
-        <Cfg_2>true</Cfg_2>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
-        <Cfg_2_Win64>true</Cfg_2_Win64>
-        <CfgParent>Cfg_2</CfgParent>
-        <Cfg_2>true</Cfg_2>
-        <Base>true</Base>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
@@ -75,11 +63,9 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <BCC_PCHName_Clang>Project1PCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <PackageImports>adortl;appanalytics;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapClient;DataSnapCommon;DataSnapConnectors;DatasnapConnectorsFreePascal;DataSnapFireDAC;DataSnapIndy10ServerTransport;DataSnapNativeClient;DataSnapProviderClient;DataSnapServer;DataSnapServerMidas;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXDb2Driver;DBXFirebirdDriver;DBXInformixDriver;DBXInterBaseDriver;DBXMSSQLDriver;DBXMySQLDriver;DBXOdbcDriver;DBXOracleDriver;DBXSqliteDriver;DBXSybaseASADriver;DBXSybaseASEDriver;dsnap;dsnapcon;dsnapxml;emsedge;emshosting;FireDACADSDriver;FireDACASADriver;FireDACCommonODBC;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACInfxDriver;FireDACMongoDBDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACTDataDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;ibmonitor;ibxbindings;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inetdb;inetdbxpress;Intraweb;rtl;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclib;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;$(PackageImports)</PackageImports>
-        <BCC_PCHName_Clang>Project1PCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -112,20 +98,22 @@
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <BCC_PCHName_Clang>Project1PCH1.h</BCC_PCHName_Clang>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <BCC_PCHName_Clang>Project1PCH1.h</BCC_PCHName_Clang>
-    </PropertyGroup>
     <ItemGroup>
-        <CppCompile Include="Belousovadll.cpp">
+        <CppCompile Include="FAT32.cpp">
             <BuildOrder>1</BuildOrder>
         </CppCompile>
-        <PCHCompile Include="Project1PCH1.h">
-            <BuildOrder>0</BuildOrder>
-            <PCH>true</PCH>
-        </PCHCompile>
+        <None Include="FAT32.h">
+            <BuildOrder>3</BuildOrder>
+        </None>
+        <CppCompile Include="FileSystemFactory.cpp">
+            <BuildOrder>4</BuildOrder>
+        </CppCompile>
+        <None Include="FileSystemFactory.h">
+            <BuildOrder>4</BuildOrder>
+        </None>
+        <None Include="FileSystemInterface.h">
+            <BuildOrder>2</BuildOrder>
+        </None>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
